@@ -31,3 +31,9 @@ func (f *FlexArray) Append(items ...interface{}) *FlexArray {
   *f = temp
   return f
 }
+
+func (f *FlexArray) Prepend(items ...interface{}) *FlexArray {
+  temp := append(items, *f...)
+  *f = temp
+  return f
+}

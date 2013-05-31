@@ -52,3 +52,11 @@ func (f *FlexArray) Dequeue() interface{} {
   *f = temp[1:]
   return item
 }
+
+func (f *FlexArray) Each(fn func(interface{})) *FlexArray {
+  temp := *f
+  for _, item := range temp {
+    fn(item)
+  }
+  return f
+}

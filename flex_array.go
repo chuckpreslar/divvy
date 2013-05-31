@@ -89,3 +89,15 @@ func (f *FlexArray) Select(fn func(interface{}) bool) *FlexArray {
   result := FlexArray(selection)
   return &result
 }
+
+func (f *FlexArray) Reject(fn func(interface{}) bool) *FlexArray {
+  temp := *f
+  rejection := []interface{}{}
+  for _, item := range temp {
+    if !fn(item) {
+      rejection = append(rejection, item)
+    }
+  }
+  result := FlexArray(rejection)
+  return &result
+}

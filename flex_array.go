@@ -37,3 +37,7 @@ func (f *FlexArray) Prepend(items ...interface{}) *FlexArray {
   *f = temp
   return f
 }
+
+func (f *FlexArray) Push(items ...interface{}) *FlexArray {
+  return f.Prepend(items...)
+}

@@ -45,3 +45,10 @@ func (f *FlexArray) Push(items ...interface{}) *FlexArray {
 func (f *FlexArray) Queue(items ...interface{}) *FlexArray {
   return f.Append(items...)
 }
+
+func (f *FlexArray) Dequeue() interface{} {
+  temp := *f
+  item := temp[0]
+  *f = temp[1:]
+  return item
+}

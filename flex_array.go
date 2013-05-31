@@ -41,3 +41,7 @@ func (f *FlexArray) Prepend(items ...interface{}) *FlexArray {
 func (f *FlexArray) Push(items ...interface{}) *FlexArray {
   return f.Prepend(items...)
 }
+
+func (f *FlexArray) Queue(items ...interface{}) *FlexArray {
+  return f.Append(items...)
+}

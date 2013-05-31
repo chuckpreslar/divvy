@@ -60,3 +60,11 @@ func (f *FlexArray) Each(fn func(interface{})) *FlexArray {
   }
   return f
 }
+
+func (f *FlexArray) EachWithIndex(fn func(interface{}, int)) *FlexArray {
+  temp := *f
+  for index, item := range temp {
+    fn(item, index)
+  }
+  return f
+}

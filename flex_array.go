@@ -16,3 +16,12 @@ func (f *FlexArray) Insert(item interface{}, index int) *FlexArray {
   *f = temp
   return f
 }
+
+func (f *FlexArray) Remove(index int) *FlexArray {
+  temp := *f
+  copy(temp[index:], temp[index+1:])
+  temp[len(temp)-1] = nil
+  temp = temp[:len(temp)-1]
+  *f = temp
+  return f
+}

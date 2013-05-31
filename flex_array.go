@@ -25,3 +25,9 @@ func (f *FlexArray) Remove(index int) *FlexArray {
   *f = temp
   return f
 }
+
+func (f *FlexArray) Append(items ...interface{}) *FlexArray {
+  temp := append(*f, items...)
+  *f = temp
+  return f
+}

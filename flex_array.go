@@ -77,3 +77,15 @@ func (f *FlexArray) Map(fn func(interface{}) interface{}) *FlexArray {
   *f = temp
   return f
 }
+
+func (f *FlexArray) Select(fn func(interface{}) bool) *FlexArray {
+  temp := *f
+  selection := []interface{}{}
+  for _, item := range temp {
+    if fn(item) {
+      selection = append(selection, item)
+    }
+  }
+  result := FlexArray(selection)
+  return &result
+}

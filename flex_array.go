@@ -68,3 +68,12 @@ func (f *FlexArray) EachWithIndex(fn func(interface{}, int)) *FlexArray {
   }
   return f
 }
+
+func (f *FlexArray) Map(fn func(interface{}) interface{}) *FlexArray {
+  temp := *f
+  for index, item := range temp {
+    temp[index] = fn(item)
+  }
+  *f = temp
+  return f
+}

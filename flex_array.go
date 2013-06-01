@@ -128,3 +128,18 @@ func (f *FlexArray) IndexOf(item interface{}) int {
   }
   return index
 }
+
+func (f *FlexArray) LastIndexOf(item interface{}) int {
+  index := f.IndexOf(item)
+  if ^index == 0 {
+    return index
+  } else {
+    temp := *f
+    for i := index; i < len(temp); i += 1 {
+      if item == temp[i] {
+        index = i
+      }
+    }
+  }
+  return index
+}

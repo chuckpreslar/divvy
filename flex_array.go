@@ -10,19 +10,26 @@ func NewFlexArray() *FlexArray {
   return &FlexArray{}
 }
 
-func (f *FlexArray) Insert(item interface{}, index int) *FlexArray {
+func (f *FlexArray) InsertAt(item interface{}, index int) *FlexArray {
   temp := *f
   temp = append(temp[:index], append([]interface{}{item}, temp[index:]...)...)
   *f = temp
   return f
 }
 
-func (f *FlexArray) Remove(index int) *FlexArray {
+func (f *FlexArray) RemoveAt(index int) *FlexArray {
   temp := *f
   copy(temp[index:], temp[index+1:])
   temp[len(temp)-1] = nil
   temp = temp[:len(temp)-1]
   *f = temp
+  return f
+}
+
+func (f *FlexArray) Splice(index, count int) *FlexArray {
+  for i := 0; i < count; i += 1 {
+    f.RemoveAt(index)
+  }
   return f
 }
 

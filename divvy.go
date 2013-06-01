@@ -1,15 +1,42 @@
+// The MIT License (MIT)
+
+// Copyright (c) 2013 Chuck Preslar
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+// Common array operations for GO lang's slices.
 package divvy
 
 import (
   _ "fmt"
 )
 
+//  Divvy type to allow receiver methods to manipulate go slice.
 type Divvy []interface{}
 
+// Returns a pointer to a new Divvy type
 func New() *Divvy {
   return &Divvy{}
 }
 
+// Inserts an supplied item at a given index in a Divvy type, returning the original
+// Divvy for continued chaining.
 func (d *Divvy) InsertAt(item interface{}, index int) *Divvy {
   temp := *d
   temp = append(temp[:index], append([]interface{}{item}, temp[index:]...)...)
@@ -17,6 +44,7 @@ func (d *Divvy) InsertAt(item interface{}, index int) *Divvy {
   return d
 }
 
+// Removes an item at a given index from a Divvy type, returning the removed item.
 func (d *Divvy) RemoveAt(index int) interface{} {
   temp := *d
   item := temp[index]
@@ -27,6 +55,8 @@ func (d *Divvy) RemoveAt(index int) interface{} {
   return item
 }
 
+// Splice removes items starting at a specified index up to a maximum of the given count,
+// returning a new Divvy containing the removed items for continued chaining.
 func (d *Divvy) Splice(index, count int) *Divvy {
   temp := make([]interface{}, count)
   for i := 0; i < count; i += 1 {
@@ -36,22 +66,30 @@ func (d *Divvy) Splice(index, count int) *Divvy {
   return &result
 }
 
+// Inserts the given item(s) at the end of the Divvy type, returning the original
+// Divvy for continued chaining.
 func (d *Divvy) Append(items ...interface{}) *Divvy {
   temp := append(*d, items...)
   *d = temp
   return d
 }
 
+// Inserts the given item(s) at the begining of a Divvy type, returning the original
+// Divvy for continued chaining
 func (d *Divvy) Prepend(items ...interface{}) *Divvy {
   temp := append(items, *d...)
   *d = temp
   return d
 }
 
+// Alias method for Append, allowing the Divvy to be thought of as a stack, returning the original
+// Divvy for continued chaining
 func (d *Divvy) Push(items ...interface{}) *Divvy {
   return d.Append(items...)
 }
 
+// Removes and returns an item from the back of the Divvy type so the Divvy may be thought of as
+// a stack.
 func (d *Divvy) Pop() interface{} {
   temp := *d
   index := len(temp) - 1
@@ -60,10 +98,14 @@ func (d *Divvy) Pop() interface{} {
   return item
 }
 
+// Alias method for Appebd, inserting an item(s) to the end of a Divvy type so it may
+// be thought of as a queue.
 func (d *Divvy) Queue(items ...interface{}) *Divvy {
   return d.Append(items...)
 }
 
+// Removes and returns an item from the front of the Divvy type so the Divvy may be thought of as
+// a queue.
 func (d *Divvy) Dequeue() interface{} {
   temp := *d
   item := temp[0]
@@ -71,6 +113,8 @@ func (d *Divvy) Dequeue() interface{} {
   return item
 }
 
+// Each takes a function which takes a single interface{} type as an argument, calling the function
+// with each item stored in the Divvy array and returning it for continued chaining.
 func (d *Divvy) Each(fn func(interface{})) *Divvy {
   temp := *d
   for _, item := range temp {
@@ -79,6 +123,9 @@ func (d *Divvy) Each(fn func(interface{})) *Divvy {
   return d
 }
 
+// EachWithIndex takes a function which takes an interface{} and int types as arguments,
+// calling the function with each item stored in the Divvy array and its index,
+// and returning the original Divvy for continued chaining.
 func (d *Divvy) EachWithIndex(fn func(interface{}, int)) *Divvy {
   temp := *d
   for index, item := range temp {
@@ -87,13 +134,16 @@ func (d *Divvy) EachWithIndex(fn func(interface{}, int)) *Divvy {
   return d
 }
 
+// Map, similar to Each, takes a function which takes and returns a single interface{} type,
+// calling the function with each item stored in the Divvy array and mapping the returned
+// results to a new Divvy array.  The new Divvy array is returned for continued chaining.
 func (d *Divvy) Map(fn func(interface{}) interface{}) *Divvy {
   temp := *d
   for index, item := range temp {
     temp[index] = fn(item)
   }
-  *d = temp
-  return d
+  result := Divvy(temp)
+  return &result
 }
 
 func (d *Divvy) Select(fn func(interface{}) bool) *Divvy {

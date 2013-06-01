@@ -208,3 +208,14 @@ func (d *Divvy) Reverse() *Divvy {
   *d = temp
   return d
 }
+
+func (d *Divvy) Unique() *Divvy {
+  temp := *d
+  unique := Divvy{}
+  for _, item := range temp {
+    if ^unique.IndexOf(item) == 0 {
+      unique.Append(item)
+    }
+  }
+  return &unique
+}

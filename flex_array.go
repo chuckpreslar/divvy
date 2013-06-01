@@ -39,7 +39,14 @@ func (f *FlexArray) Prepend(items ...interface{}) *FlexArray {
 }
 
 func (f *FlexArray) Push(items ...interface{}) *FlexArray {
-  return f.Prepend(items...)
+  return f.Append(items...)
+}
+
+func (f *FlexArray) Pop() interface{} {
+  temp := *f
+  item := temp[len(temp)-1]
+  *f = temp[:len(temp)-1]
+  return item
 }
 
 func (f *FlexArray) Queue(items ...interface{}) *FlexArray {

@@ -116,3 +116,15 @@ func (f *FlexArray) Reject(fn func(interface{}) bool) *FlexArray {
   result := FlexArray(rejection)
   return &result
 }
+
+func (f *FlexArray) IndexOf(item interface{}) int {
+  index := -1
+  temp := *f
+  for i, v := range temp {
+    if v == item {
+      index = i
+      break
+    }
+  }
+  return index
+}

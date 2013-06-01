@@ -51,8 +51,9 @@ func (f *FlexArray) Push(items ...interface{}) *FlexArray {
 
 func (f *FlexArray) Pop() interface{} {
   temp := *f
-  item := temp[len(temp)-1]
-  *f = temp[:len(temp)-1]
+  index := len(temp) - 1
+  item := temp[index]
+  *f = temp[:index]
   return item
 }
 

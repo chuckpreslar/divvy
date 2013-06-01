@@ -146,6 +146,10 @@ func (d *Divvy) Map(fn func(interface{}) interface{}) *Divvy {
   return &result
 }
 
+// Select takes a function as an argument that returns a boolean.  Looping through each item
+// within the Divvy type, if the supplied function returns true when supplied the item at
+// the current index of the initial Divvy, the item is added to a new Divvy array.  The
+// new Divvy array is returned for continued chaining.
 func (d *Divvy) Select(fn func(interface{}) bool) *Divvy {
   temp := *d
   selection := []interface{}{}
@@ -158,6 +162,10 @@ func (d *Divvy) Select(fn func(interface{}) bool) *Divvy {
   return &result
 }
 
+// Select takes a function as an argument that returns a boolean.  Looping through each item
+// within the Divvy type, if the supplied function returns false when supplied the item at
+// the current index of the initial Divvy, the item is added to a new Divvy array.  The
+// new Divvy array is returned for continued chaining.
 func (d *Divvy) Reject(fn func(interface{}) bool) *Divvy {
   temp := *d
   rejection := []interface{}{}
@@ -170,6 +178,8 @@ func (d *Divvy) Reject(fn func(interface{}) bool) *Divvy {
   return &result
 }
 
+// IndexOf returns the index of the first occurrence of an item in the Divvy, or
+// -1 if the item is not found.
 func (d *Divvy) IndexOf(item interface{}) int {
   index := -1
   temp := *d
@@ -182,6 +192,8 @@ func (d *Divvy) IndexOf(item interface{}) int {
   return index
 }
 
+// IndexOf returns the index of the last occurrence of an item in the Divvy, or
+// -1 if the item is not found.
 func (d *Divvy) LastIndexOf(item interface{}) int {
   index := d.IndexOf(item)
   if ^index == 0 {
@@ -197,6 +209,8 @@ func (d *Divvy) LastIndexOf(item interface{}) int {
   return index
 }
 
+// Reverse stores the reverse the Divvy array and returns it as a new Divvy array
+// for continued chaining.
 func (d *Divvy) Reverse() *Divvy {
   temp := *d
   half, total := len(temp)/2, len(temp)-1
@@ -205,10 +219,12 @@ func (d *Divvy) Reverse() *Divvy {
     temp[i] = temp[total-i]
     temp[total-i] = item
   }
-  *d = temp
-  return d
+  result := Divvy(temp)
+  return &result
 }
 
+// Unique returns a new Divvy array containing each item stored in the original, removing
+// duplicate items.
 func (d *Divvy) Unique() *Divvy {
   temp := *d
   unique := Divvy{}

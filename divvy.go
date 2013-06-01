@@ -1,4 +1,4 @@
-package utilitybelt
+package divvy
 
 import (
   _ "fmt"

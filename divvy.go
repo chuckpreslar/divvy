@@ -17,20 +17,23 @@ func (d *Divvy) InsertAt(item interface{}, index int) *Divvy {
   return d
 }
 
-func (d *Divvy) RemoveAt(index int) *Divvy {
+func (d *Divvy) RemoveAt(index int) interface{} {
   temp := *d
+  item := temp[index]
   copy(temp[index:], temp[index+1:])
   temp[len(temp)-1] = nil
   temp = temp[:len(temp)-1]
   *d = temp
-  return d
+  return item
 }
 
 func (d *Divvy) Splice(index, count int) *Divvy {
+  temp := make([]interface{}, count)
   for i := 0; i < count; i += 1 {
-    d.RemoveAt(index)
+    temp[i] = d.RemoveAt(index)
   }
-  return d
+  result := Divvy(temp)
+  return &result
 }
 
 func (d *Divvy) Append(items ...interface{}) *Divvy {

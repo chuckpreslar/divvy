@@ -146,3 +146,15 @@ func (d *Divvy) LastIndexOf(item interface{}) int {
   }
   return index
 }
+
+func (d *Divvy) Reverse() *Divvy {
+  temp := *d
+  half := len(temp) / 2
+  for i := 0; i < half; i += 1 {
+    item := temp[i]
+    temp[i] = temp[(len(temp)-1)-i]
+    temp[(len(temp)-1)-i] = item
+  }
+  *d = temp
+  return d
+}

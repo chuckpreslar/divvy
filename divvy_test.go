@@ -38,13 +38,14 @@ func TestInsertAt(t *testing.T) {
 }
 
 func TestRemoveAt(t *testing.T) {
-  d := New()
-  d.Append(1, 2, 3, 4, 5)
-  index, expected := 4, 5
-  if value := d.RemoveAt(index); value != expected {
-    t.Errorf("RemoveAt(%v) = %v, want %v\n", index, value, expected)
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  index := 2
+  expected := supplied[index]
+  got := New().Append(supplied...).RemoveAt(index)
+  if expected != got {
+    t.Errorf("RemoveAt(%v) = %v, want %v\n", index, got, expected)
   }
-  if d.RemoveAt(10) != nil {
+  if New().RemoveAt(10) != nil {
     t.Errorf("Expected RemoveAt to return nil when provided an unoccupied index.")
   }
 }
@@ -77,5 +78,17 @@ func TestDequeue(t *testing.T) {
   got := New().Append(1, 2, 3, 4, 5).Dequeue()
   if expected != got {
     t.Errorf("Dequeue() = %v, want %v\n", got, expected)
+  }
+}
+
+func TestEach(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  total := len(supplied)
+  called := 0
+  New().Append(supplied...).Each(func(item interface{}) {
+    called += 1
+  })
+  if called != total {
+    t.Errorf("Expected each to be called %v times, was called %v times instead.", total, called)
   }
 }

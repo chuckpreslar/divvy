@@ -137,8 +137,7 @@ func (d *Divvy) Last() interface{} {
 // Each takes a function which takes a single interface{} type as an argument, calling the function
 // with each item stored in the Divvy array and returning it for continued chaining.
 func (d *Divvy) Each(fn func(interface{})) *Divvy {
-  temp := *d
-  for _, item := range temp {
+  for _, item := range *d {
     fn(item)
   }
   return d
@@ -172,9 +171,8 @@ func (d *Divvy) Map(fn func(interface{}) interface{}) *Divvy {
 // the current index of the initial Divvy, the item is added to a new Divvy array.  The
 // new Divvy array is returned for continued chaining.
 func (d *Divvy) Select(fn func(interface{}) bool) *Divvy {
-  temp := *d
   selection := []interface{}{}
-  for _, item := range temp {
+  for _, item := range *d {
     if fn(item) {
       selection = append(selection, item)
     }
@@ -188,9 +186,8 @@ func (d *Divvy) Select(fn func(interface{}) bool) *Divvy {
 // the current index of the initial Divvy, the item is added to a new Divvy array.  The
 // new Divvy array is returned for continued chaining.
 func (d *Divvy) Reject(fn func(interface{}) bool) *Divvy {
-  temp := *d
   rejection := []interface{}{}
-  for _, item := range temp {
+  for _, item := range *d {
     if !fn(item) {
       rejection = append(rejection, item)
     }
@@ -203,8 +200,7 @@ func (d *Divvy) Reject(fn func(interface{}) bool) *Divvy {
 // -1 if the item is not found.
 func (d *Divvy) IndexOf(item interface{}) int {
   index := -1
-  temp := *d
-  for i, v := range temp {
+  for i, v := range *d {
     if v == item {
       index = i
       break

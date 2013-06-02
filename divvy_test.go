@@ -170,3 +170,13 @@ func TestReverse(t *testing.T) {
     }
   }
 }
+
+func TestUnique(t *testing.T) {
+  supplied, expected := []interface{}{1, 2, 3, 4, 5, 1, 3, 5}, []interface{}{1, 2, 3, 4, 5}
+  got := New().Append(supplied...).Unique()
+  for i, v := range *got {
+    if v != expected[i] {
+      t.Errorf("Expected %v to equal %v\n", v, expected[i])
+    }
+  }
+}

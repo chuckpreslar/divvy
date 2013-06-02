@@ -41,3 +41,15 @@ func TestSplice(t *testing.T) {
     t.Errorf("Expected Splice to return an empty Divvy when provided an unoccupied index.")
   }
 }
+
+func TestAppend(t *testing.T) {
+  d := New()
+  d.Append(1, 2, 3)
+  expected := []interface{}{1, 2, 3}
+  for i, v := range *d {
+    if expected[i] != v {
+      t.Errorf("Append(1, 2, 3) => %v, want &[%v]\n", d, expected)
+    }
+  }
+  d.Append(1, 2, 3)
+}

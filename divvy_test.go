@@ -138,3 +138,21 @@ func TestReject(t *testing.T) {
     }
   }
 }
+
+func TestIndexOf(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  index := 4
+  got := New().Append(supplied...).IndexOf(supplied[index])
+  if got != index {
+    t.Errorf("IndexOf(%v) = %v, want %v", supplied[index], got, index)
+  }
+}
+
+func TestLastIndexOf(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5, 1, 2, 3, 4, 5}
+  index := 6
+  got := New().Append(supplied...).LastIndexOf(supplied[index])
+  if got != index {
+    t.Errorf("IndexOf(%v) = %v, want %v", supplied[index], got, index)
+  }
+}

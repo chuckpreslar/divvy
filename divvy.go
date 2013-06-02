@@ -209,7 +209,7 @@ func (d *Divvy) IndexOf(item interface{}) int {
   return index
 }
 
-// IndexOf returns the index of the last occurrence of an item in the Divvy, or
+// LastIndexOf returns the index of the last occurrence of an item in the Divvy type, or
 // -1 if the item is not found.
 func (d *Divvy) LastIndexOf(item interface{}) int {
   index := d.IndexOf(item)

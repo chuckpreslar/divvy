@@ -237,18 +237,62 @@ func (d *Divvy) Unique() *Divvy {
   return &unique
 }
 
+// Length returns the current length of the Divvy type.
 func (d *Divvy) Length() int {
   return len(*d)
 }
 
+// Count is an alias for Length, returning the number of items in the Divvy type.
 func (d *Divvy) Count() int {
   return d.Length()
 }
 
+// Join joins the items within the Divvy type with the given delimiter.
 func (d *Divvy) Join(delimiter string) string {
   temp := make([]string, d.Length())
   for index, item := range *d {
     temp[index] = fmt.Sprintf("%v", item)
   }
   return strings.Join(temp, delimiter)
+}
+
+// Sorts uses a merge sort to sort the Divvy type based on the given comparator function.
+func (d *Divvy) Sort(fn func(interface{}, interface{}) bool) *Divvy {
+  *d = mergeSort(*d, fn)
+  return d
+}
+
+// Helper function for a Divvy types Sort method.
+func mergeSort(list []interface{}, fn func(interface{}, interface{}) bool) []interface{} {
+  if 1 >= len(list) {
+    return list
+  }
+  half := len(list) / 2
+  left, right := list[:half], list[half:]
+  left = mergeSort(left, fn)
+  right = mergeSort(right, fn)
+  return merge(left, right, fn)
+}
+
+// Helper function for a Divvy types Sort method.
+func merge(left, right []interface{}, fn func(interface{}, interface{}) bool) []interface{} {
+  result := []interface{}{}
+  for 0 < len(left) || 0 < len(right) {
+    if 0 < len(left) && 0 < len(right) {
+      if fn(left[0], right[0]) {
+        result = append(result, left[0])
+        left = left[1:]
+      } else {
+        result = append(result, right[0])
+        right = right[1:]
+      }
+    } else if 0 < len(left) {
+      result = append(result, left[0])
+      left = left[1:]
+    } else {
+      result = append(result, right[0])
+      right = right[1:]
+    }
+  }
+  return result
 }

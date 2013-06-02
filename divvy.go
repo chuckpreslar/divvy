@@ -82,16 +82,14 @@ func (d *Divvy) Splice(index, count int) *Divvy {
 // Inserts the given item(s) at the end of the Divvy type, returning the original
 // Divvy for continued chaining.
 func (d *Divvy) Append(items ...interface{}) *Divvy {
-  temp := append(*d, items...)
-  *d = temp
+  *d = append(*d, items...)
   return d
 }
 
 // Inserts the given item(s) at the begining of a Divvy type, returning the original
 // Divvy for continued chaining
 func (d *Divvy) Prepend(items ...interface{}) *Divvy {
-  temp := append(items, *d...)
-  *d = temp
+  *d = append(items, *d...)
   return d
 }
 
@@ -124,6 +122,16 @@ func (d *Divvy) Dequeue() interface{} {
   item := temp[0]
   *d = temp[1:]
   return item
+}
+
+// First is an alias method for Dequeue, returning the first item contained within the Divvy type.
+func (d *Divvy) First() interface{} {
+  return d.Dequeue()
+}
+
+// Last is an alias method for Pop, returning the last item contained within the Divvy type.
+func (d *Divvy) Last() interface{} {
+  return d.Pop()
 }
 
 // Each takes a function which takes a single interface{} type as an argument, calling the function

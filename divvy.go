@@ -38,8 +38,14 @@ func New() *Divvy {
 
 // Inserts an supplied item at a given index in a Divvy type, returning the original
 // Divvy for continued chaining.
-func (d *Divvy) InsertAt(item interface{}, index int) *Divvy {
-  temp := *d
+func (d *Divvy) InsertAt(index int, item interface{}) *Divvy {
+  var temp []interface{}
+  if index > len(*d) {
+    temp = make([]interface{}, index+1)
+  } else {
+    temp = make([]interface{}, len(*d))
+  }
+  copy(temp, *d)
   temp = append(temp[:index], append([]interface{}{item}, temp[index:]...)...)
   *d = temp
   return d

@@ -25,3 +25,16 @@ func TestRemoveAt(t *testing.T) {
     t.Errorf("Expected RemoveAt to return nil when provided an unoccupied index.")
   }
 }
+
+func TestSplice(t *testing.T) {
+  d := New()
+  d.Append(1, 2, 3, 4, 5)
+  index, number := 0, 3
+  expected := []interface{}{1, 2, 3}
+  got := *d.Splice(0, 3)
+  for i, _ := range expected {
+    if expected[i] != got[i] {
+      t.Errorf("Splice(%v, %v) = %v, want %v\n", index, number, got, expected)
+    }
+  }
+}

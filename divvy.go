@@ -68,6 +68,9 @@ func (d *Divvy) RemoveAt(index int) interface{} {
 // Splice removes items starting at a specified index up to a maximum of the given count,
 // returning a new Divvy containing the removed items for continued chaining.
 func (d *Divvy) Splice(index, count int) *Divvy {
+  if index > len(*d) {
+    return New()
+  }
   temp := make([]interface{}, count)
   for i := 0; i < count; i += 1 {
     temp[i] = d.RemoveAt(index)

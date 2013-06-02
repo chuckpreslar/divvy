@@ -50,8 +50,7 @@ func TestRemoveAt(t *testing.T) {
 }
 
 func TestSplice(t *testing.T) {
-  d := New()
-  d.Append(1, 2, 3, 4, 5)
+  d := New().Append(1, 2, 3, 4, 5)
   index, number := 0, 3
   expected := []interface{}{1, 2, 3}
   got := *d.Splice(0, 3)
@@ -62,5 +61,21 @@ func TestSplice(t *testing.T) {
   }
   if len(*d.Splice(10, 1)) != 0 {
     t.Errorf("Expected Splice to return an empty Divvy when provided an unoccupied index.")
+  }
+}
+
+func TestPop(t *testing.T) {
+  expected := 5
+  got := New().Append(1, 2, 3, 4, 5).Pop()
+  if expected != got {
+    t.Errorf("Pop() = %v, want %v\n", got, expected)
+  }
+}
+
+func TestDequeue(t *testing.T) {
+  expected := 1
+  got := New().Append(1, 2, 3, 4, 5).Dequeue()
+  if expected != got {
+    t.Errorf("Dequeue() = %v, want %v\n", got, expected)
   }
 }

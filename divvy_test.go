@@ -37,4 +37,7 @@ func TestSplice(t *testing.T) {
       t.Errorf("Splice(%v, %v) = %v, want %v\n", index, number, got, expected)
     }
   }
+  if len(*d.Splice(10, 1)) != 0 {
+    t.Errorf("Expected Splice to return an empty Divvy when provided an unoccupied index.")
+  }
 }

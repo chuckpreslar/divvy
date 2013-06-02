@@ -53,6 +53,9 @@ func (d *Divvy) InsertAt(index int, item interface{}) *Divvy {
 
 // Removes an item at a given index from a Divvy type, returning the removed item.
 func (d *Divvy) RemoveAt(index int) interface{} {
+  if index > len(*d) {
+    return nil
+  }
   temp := *d
   item := temp[index]
   copy(temp[index:], temp[index+1:])

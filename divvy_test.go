@@ -66,8 +66,7 @@ func TestSplice(t *testing.T) {
 }
 
 func TestPop(t *testing.T) {
-  expected := 5
-  got := New().Append(1, 2, 3, 4, 5).Pop()
+  expected, got := 5, New().Append(1, 2, 3, 4, 5).Pop()
   if expected != got {
     t.Errorf("Pop() = %v, want %v\n", got, expected)
   }
@@ -83,12 +82,26 @@ func TestDequeue(t *testing.T) {
 
 func TestEach(t *testing.T) {
   supplied := []interface{}{1, 2, 3, 4, 5}
-  total := len(supplied)
-  called := 0
+  total, called := len(supplied), 0
   New().Append(supplied...).Each(func(item interface{}) {
     called += 1
   })
   if called != total {
     t.Errorf("Expected each to be called %v times, was called %v times instead.", total, called)
   }
+}
+
+func TestEachWithIndex(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  total, called, sum, expected := len(supplied), 0, 0, 10
+  New().Append(supplied...).EachWithIndex(func(item interface{}, index int) {
+    called += 1
+    sum += index
+  })
+  if called != total {
+    t.Errorf("Expected each to be called %v times, was called %v times instead.", total, called)
+  } else if sum != expected {
+    t.Errorf("Expected sum of indices to be %v, was %v instead.", expected, sum)
+  }
+
 }

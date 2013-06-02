@@ -129,7 +129,7 @@ func TestReject(t *testing.T) {
     return (item.(int))%2 != 0
   })
   if len(*got) != len(expected) {
-    t.Errorf("Expected length of %v to equal %v\n", *got, expected)
+    t.Errorf("Expected length of %v to equal %v\n", *got, len(expected))
   } else {
     for i, v := range *got {
       if v != expected[i] {
@@ -154,5 +154,19 @@ func TestLastIndexOf(t *testing.T) {
   got := New().Append(supplied...).LastIndexOf(supplied[index])
   if got != index {
     t.Errorf("IndexOf(%v) = %v, want %v", supplied[index], got, index)
+  }
+}
+
+func TestReverse(t *testing.T) {
+  supplied, expected := []interface{}{1, 2, 3, 4, 5}, []interface{}{5, 4, 3, 2, 1}
+  got := New().Append(supplied...).Reverse()
+  if len(*got) != len(expected) {
+    t.Errorf("Expected length of %v to equal %v\n", *got, len(expected))
+  } else {
+    for i, v := range *got {
+      if v != expected[i] {
+        t.Errorf("Expected %v to equal %v\n", v, expected[i])
+      }
+    }
   }
 }

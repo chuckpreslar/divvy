@@ -21,12 +21,14 @@ import (
 )
 
 func main() {
-  fruit := divvy.New()
-  index := fruit.Append("apple").Append("banana", "grape").
-    Prepend("kiwi").Prepend("watermelon", "strawberry").
+  fruits := divvy.New()
+  index := fruits.Append("apple").Append("banana", "grape").
+    Push("kiwi").Prepend("watermelon", "strawberry").
+    Queue("cherry").
     Sort(func(left, right interface{}) bool {
     return left.(string) < right.(string)
   }).IndexOf("apple") // 0
+  fruit := fruits.Pop() // "watermelon"
 }
 ```
 

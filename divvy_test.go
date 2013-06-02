@@ -44,12 +44,11 @@ func TestSplice(t *testing.T) {
 
 func TestAppend(t *testing.T) {
   d := New()
-  d.Append(1, 2, 3)
   expected := []interface{}{1, 2, 3}
+  d.Append(expected...)
   for i, v := range *d {
     if expected[i] != v {
-      t.Errorf("Append(1, 2, 3) => %v, want &[%v]\n", d, expected)
+      t.Errorf("Append(%v) => %v, want &[%v]\n", expected, d, expected)
     }
   }
-  d.Append(1, 2, 3)
 }

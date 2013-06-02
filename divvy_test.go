@@ -4,6 +4,29 @@ import (
   "testing"
 )
 
+func TestAppend(t *testing.T) {
+  d := New()
+  expected := []interface{}{1, 2, 3}
+  d.Append(expected...)
+  for i, v := range *d {
+    if expected[i] != v {
+      t.Errorf("Append(%v) => %v, want &[%v]\n", expected, d, expected)
+    }
+  }
+}
+
+func TestPrepend(t *testing.T) {
+  d := New()
+  prepend := []interface{}{1, 2, 3}
+  d.Append(4).Prepend(prepend...)
+  expected := []interface{}{1, 2, 3, 4}
+  for i, v := range *d {
+    if expected[i] != v {
+      t.Errorf("Append(%v) => %v, want &[%v]\n", expected, d, expected)
+    }
+  }
+}
+
 func TestInsertAt(t *testing.T) {
   d := New()
   index, value := 2, 1
@@ -39,16 +62,5 @@ func TestSplice(t *testing.T) {
   }
   if len(*d.Splice(10, 1)) != 0 {
     t.Errorf("Expected Splice to return an empty Divvy when provided an unoccupied index.")
-  }
-}
-
-func TestAppend(t *testing.T) {
-  d := New()
-  expected := []interface{}{1, 2, 3}
-  d.Append(expected...)
-  for i, v := range *d {
-    if expected[i] != v {
-      t.Errorf("Append(%v) => %v, want &[%v]\n", expected, d, expected)
-    }
   }
 }

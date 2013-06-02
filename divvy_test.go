@@ -87,7 +87,7 @@ func TestEach(t *testing.T) {
     called += 1
   })
   if called != total {
-    t.Errorf("Expected each to be called %v times, was called %v times instead.", total, called)
+    t.Errorf("Expected each to be called %v times, was called %v times instead.\n", total, called)
   }
 }
 
@@ -99,9 +99,42 @@ func TestEachWithIndex(t *testing.T) {
     sum += index
   })
   if called != total {
-    t.Errorf("Expected each to be called %v times, was called %v times instead.", total, called)
+    t.Errorf("Expected each to be called %v times, was called %v times instead.\n", total, called)
   } else if sum != expected {
-    t.Errorf("Expected sum of indices to be %v, was %v instead.", expected, sum)
+    t.Errorf("Expected sum of indices to be %v, was %v instead.\n", expected, sum)
   }
+}
 
+func TestSelect(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  expected := []interface{}{2, 4}
+  got := New().Append(supplied...).Select(func(item interface{}) bool {
+    return (item.(int))%2 == 0
+  })
+  if len(*got) != len(expected) {
+    t.Errorf("Expected length of %v to equal %v\n", *got, expected)
+  } else {
+    for i, v := range *got {
+      if v != expected[i] {
+        t.Errorf("Expected %v to equal %v\n", *got, expected)
+      }
+    }
+  }
+}
+
+func TestReject(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  expected := []interface{}{1, 3, 5}
+  got := New().Append(supplied...).Select(func(item interface{}) bool {
+    return (item.(int))%2 != 0
+  })
+  if len(*got) != len(expected) {
+    t.Errorf("Expected length of %v to equal %v\n", *got, expected)
+  } else {
+    for i, v := range *got {
+      if v != expected[i] {
+        t.Errorf("Expected %v to equal %v\n", *got, expected)
+      }
+    }
+  }
 }

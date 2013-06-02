@@ -139,7 +139,8 @@ func (d *Divvy) EachWithIndex(fn func(interface{}, int)) *Divvy {
 // calling the function with each item stored in the Divvy array and mapping the returned
 // results to a new Divvy array.  The new Divvy array is returned for continued chaining.
 func (d *Divvy) Map(fn func(interface{}) interface{}) *Divvy {
-  temp := *d
+  var temp []interface{}
+  copy(temp, *d)
   for index, item := range temp {
     temp[index] = fn(item)
   }

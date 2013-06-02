@@ -24,7 +24,8 @@
 package divvy
 
 import (
-  _ "fmt"
+  "fmt"
+  "strings"
 )
 
 //  Divvy type to allow receiver methods to manipulate go slice.
@@ -234,4 +235,20 @@ func (d *Divvy) Unique() *Divvy {
     }
   }
   return &unique
+}
+
+func (d *Divvy) Length() int {
+  return len(*d)
+}
+
+func (d *Divvy) Count() int {
+  return d.Length()
+}
+
+func (d *Divvy) Join(delimiter string) string {
+  temp := make([]string, d.Length())
+  for index, item := range *d {
+    temp[index] = fmt.Sprintf("%v", item)
+  }
+  return strings.Join(temp, delimiter)
 }

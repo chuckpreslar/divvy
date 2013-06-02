@@ -26,8 +26,8 @@ func main() {
     Push("kiwi").Prepend("watermelon", "strawberry").
     Queue("cherry").
     Sort(func(left, right interface{}) bool {
-    return left.(string) < right.(string)
-  }).IndexOf("apple") // 0
+      return left.(string) < right.(string)
+    }).IndexOf("apple") // 0
   fruit := fruits.Pop() // "watermelon"
 }
 ```

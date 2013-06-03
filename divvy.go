@@ -109,7 +109,7 @@ func (d *Divvy) Pop() interface{} {
   return item
 }
 
-// Alias method for Appebd, inserting an item(s) to the end of a Divvy type so it may
+// Alias method for Append, inserting an item(s) to the end of a Divvy type so it may
 // be thought of as a queue.
 func (d *Divvy) Queue(items ...interface{}) *Divvy {
   return d.Append(items...)

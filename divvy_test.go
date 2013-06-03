@@ -153,7 +153,7 @@ func TestLastIndexOf(t *testing.T) {
   index := 6
   got := New().Append(supplied...).LastIndexOf(supplied[index])
   if got != index {
-    t.Errorf("IndexOf(%v) = %v, want %v", supplied[index], got, index)
+    t.Errorf("LastIndexOf(%v) = %v, want %v", supplied[index], got, index)
   }
 }
 
@@ -190,5 +190,13 @@ func TestSort(t *testing.T) {
     if v != expected[i] {
       t.Errorf("Expected %v to equal %v\n", v, expected[i])
     }
+  }
+}
+
+func TestContains(t *testing.T) {
+  supplied := []interface{}{1, 2, 3, 4, 5}
+  index := 4
+  if !New().Append(supplied...).Contains(supplied[index]) {
+    t.Errorf("Expected %v to contain element %v\n", supplied, supplied[index])
   }
 }

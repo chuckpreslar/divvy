@@ -201,7 +201,7 @@ func (d *Divvy) Reject(fn func(interface{}) bool) *Divvy {
 func (d *Divvy) IndexOf(item interface{}) int {
   index := -1
   for i, v := range *d {
-    if v == item {
+    if item == v {
       index = i
       break
     }
@@ -246,11 +246,19 @@ func (d *Divvy) Unique() *Divvy {
   temp := *d
   unique := Divvy{}
   for _, item := range temp {
-    if ^unique.IndexOf(item) == 0 {
+    if unique.Contains(item) {
       unique.Append(item)
     }
   }
   return &unique
+}
+
+// Contains returns true if the item is found in the Divvy type.
+func (d *Divvy) Contains(item interface{}) bool {
+  if ^d.IndexOf(item) == 0 {
+    return false
+  }
+  return true
 }
 
 // Length returns the current length of the Divvy type.

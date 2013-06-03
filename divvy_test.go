@@ -22,7 +22,7 @@ func TestPrepend(t *testing.T) {
   expected := []interface{}{1, 2, 3, 4}
   for i, v := range *d {
     if expected[i] != v {
-      t.Errorf("Append(%v) => %v, want &[%v]\n", expected, d, expected)
+      t.Errorf("Prepend(%v) => %v, want &[%v]\n", expected, d, expected)
     }
   }
 }

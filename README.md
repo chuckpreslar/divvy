@@ -11,8 +11,6 @@ With Google's [Go](http://www.golang.org) installed on your machine:
 
 ## Usage
 
-Methods found 
-
 ```go
 package main
 

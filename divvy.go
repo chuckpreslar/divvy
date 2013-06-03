@@ -217,9 +217,10 @@ func (d *Divvy) LastIndexOf(item interface{}) int {
     return index
   } else {
     temp := *d
-    for i := index; i < len(temp); i += 1 {
+    for i := len(temp) - 1; i > index; i -= 1 {
       if item == temp[i] {
         index = i
+        break
       }
     }
   }

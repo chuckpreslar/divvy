@@ -32,9 +32,9 @@ func main() {
 
 ## Documentation
 
-View godoc's
+View godoc's or visit [godoc.org](http://godoc.org/github.com/chuckpreslar/divy).
 
-    $ godoc divvy
+    $ godoc emission
     
 ## License
 

@@ -32,7 +32,7 @@ func main() {
 
 ## Documentation
 
-View godoc's or visit [godoc.org](http://godoc.org/github.com/chuckpreslar/divy).
+View godoc's or visit [godoc.org](http://godoc.org/github.com/chuckpreslar/divvy).
 
     $ godoc emission
     

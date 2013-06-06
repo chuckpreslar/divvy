@@ -1,7 +1,7 @@
 divvy
 =====
 
-Spice for GO slices with common array operations.
+Spice for Go slices with common array operations.
 
 [![Build Status](https://drone.io/github.com/chuckpreslar/divvy/status.png)](https://drone.io/github.com/chuckpreslar/divvy/latest)
 

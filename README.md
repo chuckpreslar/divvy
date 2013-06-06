@@ -3,6 +3,8 @@ divvy
 
 Spice for GO slices with common array operations.
 
+[![Build Status](https://drone.io/github.com/chuckpreslar/divvy/status.png)](https://drone.io/github.com/chuckpreslar/divvy/latest)
+
 ## Installation
 
 With Google's [Go](http://www.golang.org) installed on your machine:

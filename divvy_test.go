@@ -27,6 +27,14 @@ func TestPrepend(t *testing.T) {
   }
 }
 
+func TestAtIndex(t *testing.T) {
+  item := 1
+  d := New()
+  if got := d.Append(item).AtIndex(0); item != got {
+    t.Errorf("Expected %v, got %v.\n", item, got)
+  }
+}
+
 func TestInsertAt(t *testing.T) {
   d := New()
   index, value := 2, 1

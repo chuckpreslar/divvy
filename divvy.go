@@ -40,7 +40,7 @@ func New() *Divvy {
 // Divvy for continued chaining.
 func (d *Divvy) InsertAt(index int, item interface{}) *Divvy {
   var temp []interface{}
-  if index > len(*d) {
+  if index > len(*d)-1 {
     temp = make([]interface{}, index+1)
   } else {
     temp = make([]interface{}, len(*d))
@@ -53,7 +53,7 @@ func (d *Divvy) InsertAt(index int, item interface{}) *Divvy {
 
 // Removes an item at a given index from a Divvy type, returning the removed item.
 func (d *Divvy) RemoveAt(index int) interface{} {
-  if index > len(*d) {
+  if index > len(*d)-1 {
     return nil
   }
   temp := *d
@@ -63,6 +63,15 @@ func (d *Divvy) RemoveAt(index int) interface{} {
   temp = temp[:len(temp)-1]
   *d = temp
   return item
+}
+
+// Returns the item stored at a given `index`.
+func (d *Divvy) AtIndex(index int) interface{} {
+  if index > len(*d)-1 {
+    return nil
+  }
+
+  return (*d)[index]
 }
 
 // Splice removes items starting at a specified index up to a maximum of the given count,
@@ -102,10 +111,9 @@ func (d *Divvy) Push(items ...interface{}) *Divvy {
 // Removes and returns an item from the back of the Divvy type so the Divvy may be thought of as
 // a stack.
 func (d *Divvy) Pop() interface{} {
-  temp := *d
-  index := len(temp) - 1
-  item := temp[index]
-  *d = temp[:index]
+  index := len(*d) - 1
+  item := (*d)[index]
+  *d = (*d)[:index]
   return item
 }
 
@@ -118,9 +126,8 @@ func (d *Divvy) Queue(items ...interface{}) *Divvy {
 // Removes and returns an item from the front of the Divvy type so the Divvy may be thought of as
 // a queue.
 func (d *Divvy) Dequeue() interface{} {
-  temp := *d
-  item := temp[0]
-  *d = temp[1:]
+  item := (*d)[0]
+  *d = (*d)[1:]
   return item
 }
 
@@ -216,9 +223,8 @@ func (d *Divvy) LastIndexOf(item interface{}) int {
   if ^index == 0 {
     return index
   } else {
-    temp := *d
-    for i := len(temp) - 1; i > index; i -= 1 {
-      if item == temp[i] {
+    for i := len(*d) - 1; i > index; i -= 1 {
+      if item == (*d)[i] {
         index = i
         break
       }

@@ -1,7 +1,9 @@
 divvy
 =====
 
-Spice for GO slices with common array operations.
+Spice for Go slices with common array operations.
+
+[![Build Status](https://drone.io/github.com/chuckpreslar/divvy/status.png)](https://drone.io/github.com/chuckpreslar/divvy/latest)
 
 ## Installation
 
@@ -32,9 +34,9 @@ func main() {
 
 ## Documentation
 
-View godoc's
+View godoc's or visit [godoc.org](http://godoc.org/github.com/chuckpreslar/divvy).
 
-    $ godoc divvy
+    $ godoc emission
     
 ## License
 
